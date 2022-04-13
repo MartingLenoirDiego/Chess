@@ -38,26 +38,41 @@ def main():
             if event.type == pygame.QUIT:
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
+                chess = white + black
                 mouse_presses = pygame.mouse.get_pressed()
                 if mouse_presses[0]:
                     x, y = pygame.mouse.get_pos()
-                    print('mouse', x, y)
-                    pos(white, x, y)
-                    pos(black, x, y)
+                    selected = pos(x, y, chess)
+                    move = True
+                    if selected != None:
+                        print(selected)
+                        selected.movement(chess)
+                        print(selected.mov)
+                        while move:
+                            for click in pygame.event.get():
+                                if click.type == pygame.MOUSEBUTTONDOWN:
+                                    x, y = pygame.mouse.get_pos()
+                                    mouse_presses = pygame.mouse.get_pressed()
+                                    if mouse_presses[0]:
+                                        move = shift(selected, x, y)
+                        display()
 
 
-def pos(color, x, y):
-    for i in range(len(color)):
-        for j in range(len(color[i])):
-            if color[i][j].x - 50 < x < color[i][j].x + 50 and color[i][j].y - 50 < y < color[i][j].y + 50:
-                color[i][j].movement(white)
-                print(color[i][j].mov)
+def shift(selected, x, y):
+    for i in range(len(selected.mov)):
+        if selected.mov[i][0] - 50 < x < selected.mov[i][0] + 50 and selected.mov[i][1] - 50 < y < selected.mov[i][1] + 50:
+            selected.shift(selected.mov[i][0], selected.mov[i][1])
+    return False
 
-            for k in range(len(color[i][j].mov)):
-                if color[i][j].mov[k][0] - 50 < x < color[i][j].mov[k][0] + 50 and color[i][j].mov[k][1] - 50 < y < \
-                        color[i][j].mov[k][1] + 50:
-                    color[i][j].shift(color[i][j].mov[k][0], color[i][j].mov[k][1])
-                    display()
+
+def pos(x, y, chess):
+    for i in range(len(chess)):
+        for j in range(len(chess[i])):
+            if chess[i][j].x - 50 < x < chess[i][j].x + 50 and chess[i][j].y - 50 < y < chess[i][j].y + 50:
+                selected = chess[i][j]
+                return selected
+
+
 
 
 def display():

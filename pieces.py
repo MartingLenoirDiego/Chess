@@ -55,22 +55,33 @@ class Rook(Piece):
         self.mov = []
         col = False
         coll = False
+
         for i in range(-8, 8):
+            test = False
             if 100 < self.x+i*100 < 900 and i != 0:
-                for j in range(len(board)):
-                    for k in range(len(board[j])):
-                        if board[j][k].x != self.x + i * 100:
-                            col = True
-                if not col:
-                    self.mov.append((self.x + i * 100, self.y))
+                if i < 0:
+                    for j in range(len(board)):
+                        for k in range(len(board[j])):
+                            if board[j][i].x == self.x + i * 100:
+                                self.mov =[]
+                            else:
+                                self.mov.append((self.x + i * 100, self.y))
+                if i > 0:
+                    for j in range(len(board)):
+                        for k in range(len(board[j])):
+                            if not test:
+                                if board[j][i].x == self.x + i * 100:
+                                    test = True
+                                else:
+                                    self.mov.append((self.x + i * 100, self.y))
+
+                self.mov.append((self.x + i * 100, self.y))
 
             if 100 < self.y+i*100 < 900 and i != 0:
-                for j in range(len(board)):
-                    for k in range(len(board[j])):
-                        if board[j][k].y != self.y + i * 100:
-                            coll = True
-                if not coll:
-                    self.mov.append((self.x, self.y + i * 100))
+                self.mov.append((self.x, self.y + i * 100))
+
+
+
 
         for i in range(len(self.mov)):
             pygame.draw.circle(screen, (105, 105, 105), (self.mov[i][0], self.mov[i][1]), 12)
