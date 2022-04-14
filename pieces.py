@@ -53,8 +53,41 @@ class Rook(Piece):
 
     def movement(self, board):
         self.mov = []
-        col = False
-        coll = False
+        col = True
+        xg = -1
+        xd = 1
+        yh = -1
+        yb = 1
+
+        while col:
+            for i in range(len(board)):
+                for j in range(len(board[j])):
+                    if 100 < self.x + xg * 100 < 900:
+                        if board[i][j].x == self.x + xg * 100:
+                            xg = -1555
+                        else:
+                            self.mov.append((self.x + xg * 100, self.y))
+
+                    if 100 < self.x + xd * 100 < 900:
+                        if board[i][j].x == self.x + xd * 100:
+                            xg = -1555
+                        else:
+                            self.mov.append((self.x + xd * 100, self.y))
+
+                    if 100 < self.y + yh * 100 < 900:
+                        if board[i][j].y == self.y + yh * 100:
+                            xg = -1555
+                        else:
+                            self.mov.append((self.x, self.y + yh * 100))
+
+                    if 100 < self.y + yb * 100 < 900:
+                        if board[i][j].y == self.y + yb * 100:
+                            xg = -1555
+                        else:
+                            self.mov.append((self.x, self.y + yb * 100))
+
+
+
 
         for i in range(-8, 8):
             test = False

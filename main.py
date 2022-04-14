@@ -33,6 +33,8 @@ def main():
     init_pieces(white, 6, 'white', 'w')
     init_pieces(black, 0, 'black', 'b')
     display()
+    selected = None
+    move = True
     while 1:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -56,6 +58,10 @@ def main():
                                     if mouse_presses[0]:
                                         move = shift(selected, x, y)
                         display()
+
+
+
+
 
 
 def shift(selected, x, y):
